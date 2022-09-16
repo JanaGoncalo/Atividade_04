@@ -1,0 +1,21 @@
+<aura:component 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global"
+                controller="BuscarApex">
+	
+    <aura:attribute type="List" name="contas" />
+    <aura:attribute name="columns" type="List"/>
+    
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    
+    <lightning:button variant="brand-outline" label="Buscar Contas" onclick="{! c.criarTabela }" />
+    
+    <lightning:datatable
+                keyField="id"
+                data="{! v.contas }"
+                rows="10"
+                columns="{! v.columns }"
+                hideCheckboxColumn="true"/>
+    
+    
+</aura:component>

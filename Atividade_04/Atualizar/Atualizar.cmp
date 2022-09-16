@@ -1,0 +1,11 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:appHostable">
+
+    <lightning:notificationsLibrary aura:id="notifLib" />
+    <lightning:recordForm
+        recordId = "{!v.recordId}"
+        objectApiName="Conta__c"
+        layoutType="Compact"
+        mode="edit" 
+        onsuccess="{!c.handleSuccess}"
+        onerror="{!c.handleError}"/>
+</aura:component>

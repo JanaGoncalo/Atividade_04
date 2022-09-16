@@ -1,0 +1,45 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" 
+                access="global" 
+                controller="CriarApex" >
+
+    <aura:attribute name="AccountList" type="Account" default="{'sobjectType':'Account',
+                                                               'Name':'',
+                                                               'Phone':'',
+                                                               'AccountDescricao':'',
+                                                               'Website':''}"/>
+
+    <aura:attribute name="AccListToDisplay" type="Account[]"/>
+
+    <aura:handler name="init" value="{! this }" action="{!c.displayAccount}"/>
+    <lightning:card title="Criar conta"> 
+        <lightning:input name="accName" label="Nome " value="{!v.AccountList.Name}" required="true" />
+        <lightning:input name="accPhone" label="Telefone" value="{!v.AccountList.Phone}" required="true" />
+        <lightning:input name="accDescricao" label="Descrição" value="{!v.AccountList.AccountDescricao}" />
+        <lightning:input name="accRating" label="Website" value="{!v.AccountList.Website}" />
+        <lightning:button variant="brand" label="Criar conta" title="Brand action" onclick="{!c.CreateAccount }"/>
+    </lightning:card>
+
+    <lightning:card title ="Contas"> 
+        <table class="slds-table slds-table--bordered slds-table--cell-buffer">
+            <thead>
+            <tr >
+                <th>Nome </th>
+                <th>Telefone</th>
+                <th>Descrição</th>
+                <th>Website</th>
+            </tr>
+        </thead>
+            <tbody>
+
+                <aura:iteration items="{!v.AccListToDisplay}" var="acc">
+                    <tr>
+                        <td>{!acc.Name}</td>
+                        <td>{!acc.Phone}</td>
+                        <td>{!acc.AccountDescricao}</td>
+                        <td>{!acc.Website}</td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+    </lightning:card>
+</aura:component>

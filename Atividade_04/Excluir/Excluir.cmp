@@ -1,0 +1,51 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global"
+                controller="ExcluirApex" >
+
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+    <aura:handler event="force:refreshView" action="{!c.init}" />
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="selectedLeads" type="List"/>
+    <aura:attribute name="selectedRowsCount" type="Integer" default="0"/>
+    <aura:attribute name="showDeleteBox" type="boolean" default="false"/>
+    <aura:attribute name="ButtonShow" type="boolean" default="false"/>
+     
+    <lightning:card title="Contas">
+        <div class="slds-clearfix">
+            <div class="slds-m-left_medium"> Selected Leads: {! v.selectedRowsCount }</div>
+            <div class="slds-float_right">
+                <aura:if isTrue="{!v.ButtonShow}">
+                <lightning:button variant="brand" label="Excluir" title="Brand action" onclick="{!c.handleConfirmDialog }" class="slds-m-bottom_large"/>
+            </aura:if>
+            </div>
+        </div>
+        <div style="height: 300px">
+            <lightning:datatable
+                                 columns="{! v.columns }"
+                                 data="{! v.data }"
+                                 keyField="id"
+                                 onrowselection="{! c.updateSelectedText}"
+                                 />
+        </div>
+    </lightning:card>
+     
+    <aura:if isTrue="{!v.showDeleteBox}">
+        <div role="dialog" class="slds-modal slds-fade-in-open ">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h1 class="slds-text-heading--medium">Confirmação para excluir o registro selecionado.</h1>
+                </header>
+                <div class="slds-modal__content slds-p-around--medium">
+                    <center><b>Se você clicar em Excluir, os registros serão excluídos ou em Cancelar para permanecer nesta página.</b></center>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button name='Cancel' label='Cancelar' onclick='{!c.handleConfirmDialogCancel}'/>
+                    <lightning:button variant="brand" name='Delete' label='Excluir' onclick='{!c.handleClick}'/>
+                </footer>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open"></div> 
+    </aura:if>
+</aura:component>
